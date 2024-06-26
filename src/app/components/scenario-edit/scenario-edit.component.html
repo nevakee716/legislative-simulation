@@ -24,6 +24,15 @@
           </div>
 
           <div class="slider-container">
+            <label>Reveil de la Gauche (%)</label>
+            <mat-slider min="0" max="30" step="1" [displayWith]="formatLabel">
+              <input matSliderThumb formControlName="reveilDeLaGauche">
+            </mat-slider>
+            <span class="slider-value">{{ scenarioForm.get('reveilDeLaGauche')?.value }}%</span>
+          </div>
+
+
+          <div class="slider-container">
             <label>Ratio PS dans Front Populaire (%)</label>
             <mat-slider min="0" max="100" step="1" [displayWith]="formatLabel">
               <input matSliderThumb formControlName="psRatio">

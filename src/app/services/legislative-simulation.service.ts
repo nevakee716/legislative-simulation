@@ -36,9 +36,9 @@ export class LegislativeSimulationService {
     const constituencies: any = {};
     const parties: any[] = [];
     const secondRounds: any = {
-      afterWithdraw : [],
-      beforeWithdraw : [],
-      inThirdPlaceBeforeWithDraw : []
+      afterWithdraw: [],
+      beforeWithdraw: [],
+      inThirdPlaceBeforeWithDraw: []
     };
 
 
@@ -52,7 +52,7 @@ export class LegislativeSimulationService {
       const label = row['Libellé département'] + ' ' + row['Libellé circonscription législative'];
       totalVote += row['Votants'];
 
-      const circonscription = this.processConstituency(row, scenario, results,secondRounds);
+      const circonscription = this.processConstituency(row, scenario, results, secondRounds);
       circonscriptions.push(circonscription);
 
     });
@@ -63,7 +63,7 @@ export class LegislativeSimulationService {
     return scenario;
   }
 
-  private processConstituency(row: any, scenario: any, results: any,secondRounds: any): any {
+  private processConstituency(row: any, scenario: any, results: any, secondRounds: any): any {
     const circonscription: any = {
       name: row['Libellé circonscription législative'],
       label: row['Libellé département'] + ' ' + row['Libellé circonscription législative'],
@@ -98,12 +98,13 @@ export class LegislativeSimulationService {
           voteGroup += partyResult.votes * r.ratio * scenario.participation / 0.5;
         }
       });
+      if (groupe.name === "Front Populaire") voteGroup *= (1 + scenario.reveilDeLaGauche)
       groupe.vote = Math.round(voteGroup);
 
       circonscription.legislatives["1er"].push({
         name: groupe.name,
         vote: groupe.vote,
-        "vote%": Math.round((voteGroup / (row["Exprimés"]* scenario.participation / 0.5)) * 100),
+        "vote%": Math.round((voteGroup / (row["Exprimés"] * scenario.participation / 0.5)) * 100),
         "vote%inscrits": Math.round((voteGroup / row["Inscrits"]) * 100)
       });
 
@@ -148,7 +149,7 @@ export class LegislativeSimulationService {
 
 
     circonscription.legislatives["2e"].sort((a: any, b: any) => b.vote - a.vote);
-    if(circonscription.legislatives["2e"].length > 2) secondRounds.inThirdPlaceBeforeWithDraw.push(circonscription.legislatives["2e"][2].name)
+    if (circonscription.legislatives["2e"].length > 2) secondRounds.inThirdPlaceBeforeWithDraw.push(circonscription.legislatives["2e"][2].name)
 
     if (duel == "RN vs LREM vs Front Populaire") {
       if (circonscription.legislatives["2e"][2].name == "LREM" && scenario.lremRetreatIf3rd) {
@@ -159,19 +160,20 @@ export class LegislativeSimulationService {
       }
     }
     secondRounds.afterWithdraw.push(duel)
-
+    
     if (scenario[duel]) {
-      let totalVote = 0;
+     let totalVote = 0;
       circonscription.legislatives["2e"] = [];
-      scenario[duel].forEach((groupe: any) => {
+      const results = scenario[duel].map((groupe: any) => {
         let voteGroup = 0;
-
-        const groupChecked:any = {} 
+        const groupChecked: any = {}
         // check if there is new regroupement in the duel
         groupe.regroupement.forEach((r: Regroupement) => {
           const partyResult = circonscription.results.find((res: any) => res.party_name === r.name);
           if (partyResult) {
-            voteGroup += partyResult.votes * r.ratio * scenario.participation / 0.5;
+            let v = partyResult.votes * r.ratio * scenario.participation / 0.5
+            if (groupe.name === "Front Populaire" && r.name === "PS") v *= (1 + scenario.reveilDeLaGauche)
+            voteGroup += v;
             groupChecked[r.name] = true
           }
         });
@@ -180,43 +182,34 @@ export class LegislativeSimulationService {
         scenario.groupement.find((g: Groupement) => g.name == groupe.name).regroupement.forEach((r: Regroupement) => {
           const partyResult = circonscription.results.find((res: any) => res.party_name === r.name);
           if (partyResult && groupChecked[r.name] !== true) {
-            voteGroup += partyResult.votes * r.ratio * scenario.participation / 0.5;
+            let v = partyResult.votes * r.ratio * scenario.participation / 0.5
+            if (groupe.name === "Front Populaire") v *= (1 + scenario.reveilDeLaGauche)
+            voteGroup += v;
           }
         });
 
+        
         totalVote += voteGroup;
-      });
 
-      scenario[duel].forEach((groupe: any) => {
-        let voteGroup = 0;
-        const groupChecked:any = {} 
-        // check if there is new regroupement in the duel
-        groupe.regroupement.forEach((r: Regroupement) => {
-          const partyResult = circonscription.results.find((res: any) => res.party_name === r.name);
-          if (partyResult) {
-            voteGroup += partyResult.votes * r.ratio * scenario.participation / 0.5;
-            groupChecked[r.name] = true
-          }
-        });
-
-        // look in groupement
-        scenario.groupement.find((g: Groupement) => g.name == groupe.name).regroupement.forEach((r: Regroupement) => {
-          const partyResult = circonscription.results.find((res: any) => res.party_name === r.name);
-          if (partyResult && groupChecked[r.name] !== true) {
-            voteGroup += partyResult.votes * r.ratio * scenario.participation / 0.5;
-          }
-        });
-        circonscription.legislatives["2e"].push({
+        return {
           name: groupe.name,
-          vote: Math.round(voteGroup),
-          "vote%": Math.round((voteGroup / totalVote) * 100)
-        });
+          vote: voteGroup
+        }
+
       });
+
+      circonscription.legislatives["2e"] = results.map((result:any) => ({
+        name: result.name,
+        vote: Math.round(result.vote),
+        "vote%": Math.round((result.vote / totalVote) * 100)
+      }));
 
       circonscription.legislatives["2e"].sort((a: any, b: any) => b.vote - a.vote);
       circonscription.legislatives.winner = circonscription.legislatives["2e"][0].name;
-    } 
+    }
   }
+
+
 
 
 

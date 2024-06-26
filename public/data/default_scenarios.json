@@ -3,6 +3,9 @@
         {
             "name": "Full Front Populaire",
             "participation": 0.5,
+            "reveilDeLaGauche" : 0,
+            "nfpRetreatIf3rd" : true,
+            "lremRetreatIf3rd" : true,
             "groupement": [
                 {
                     "name": "Front Populaire",

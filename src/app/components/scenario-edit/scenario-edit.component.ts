@@ -86,6 +86,7 @@ export class ScenarioEditComponent implements OnInit {
   initForms() {
     this.scenarioForm = this.fb.group({
       name: ['', Validators.required],
+      reveilDeLaGauche: [0, [Validators.required, Validators.min(0), Validators.max(30)]],
       participation: [0, [Validators.required, Validators.min(0), Validators.max(100)]],
       psRatio: [0, [Validators.required, Validators.min(0), Validators.max(100)]],
       lremToNfpRatio: [0, [Validators.required, Validators.min(0), Validators.max(100)]],
@@ -125,6 +126,7 @@ export class ScenarioEditComponent implements OnInit {
     this.scenarioForm.patchValue({
       name: scenario.name,
       participation: this.toPercentage(scenario.participation),
+      reveilDeLaGauche: this.toPercentage(scenario.reveilDeLaGauche ?? 0), // pas compris
       psRatio: this.toPercentage(this.getPSRatio(scenario)),
       lremToNfpRatio: this.toPercentage(this.getLREMToNFPRatio(scenario)),
       lrToNfpRatio: this.toPercentage(this.getLRToNFPRatio(scenario)),
@@ -169,6 +171,7 @@ export class ScenarioEditComponent implements OnInit {
     const updatedScenario = { ...this._scenario };
     updatedScenario.name = formValue.name;
     updatedScenario.participation = this.fromPercentage(formValue.participation);
+    updatedScenario.reveilDeLaGauche = this.fromPercentage(formValue.reveilDeLaGauche);
     updatedScenario.nfpRetreatIf3rd = formValue.nfpRetreatIf3rd;
     updatedScenario.lremRetreatIf3rd = formValue.lremRetreatIf3rd;
 

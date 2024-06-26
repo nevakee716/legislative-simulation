@@ -96,6 +96,7 @@ export class ScenarioListComponent implements OnInit {
     const newScenario: Scenario = {
       name: 'Nouveau scénario',
       participation: 0,
+      reveilDeLaGauche : 0,
       groupement: [],
       'LREM vs Front Populaire': [],
       'RN vs LREM': [],

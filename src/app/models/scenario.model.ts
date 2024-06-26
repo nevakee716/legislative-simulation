@@ -2,6 +2,7 @@
 export interface Scenario {
     name: string;
     participation: number;
+    reveilDeLaGauche: number;
     nfpRetreatIf3rd?: boolean;
     lremRetreatIf3rd?: boolean;
     groupement: Groupement[];
