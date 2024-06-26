@@ -16,8 +16,8 @@ export class LegislativeSimulationService {
 
   loadInitialData(): Observable<void> {
     return forkJoin([
-      this.http.get<any>('data/correspondance.json'),
-      this.http.get<any[]>('data/europeenData.json')
+      this.http.get<any>('correspondance.json'),
+      this.http.get<any[]>('europeenData.json')
     ]).pipe(
       map(([correspondance, europeenData]) => {
         this.correspondance = correspondance;

@@ -10,7 +10,7 @@ import { Scenario } from '../models/scenario.model';
 export class ScenarioService {
   private scenariosSubject = new BehaviorSubject<Scenario[]>([]);
   scenarios$ = this.scenariosSubject.asObservable();
-  private jsonUrl = 'data/default_scenarios.json';
+  private jsonUrl = 'default_scenarios.json';
   private localStorageKey = 'cachedScenarios';
 
   constructor(private http: HttpClient) {
