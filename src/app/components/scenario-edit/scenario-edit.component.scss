@@ -3,21 +3,24 @@
   flex-direction: column;
   gap: 20px;
   padding: 20px;
+  margin: 0 auto;
 }
 
 .scenario-top-row {
   display: flex;
   gap: 20px;
+  flex-wrap: wrap;
 }
 
 .scenario-container, .scenario-result {
-  flex: 1;
+  flex: 1 1 300px;
+  min-width: 300px;
 }
 
 .scenario-form {
   display: flex;
   flex-direction: column;
-  gap: 8px; // Réduit de 10px à 8px
+  gap: 8px;
 }
 
 .form-actions {
@@ -36,7 +39,7 @@ mat-form-field {
 
 .json-editor {
   width: 100%;
-
+  
   textarea {
     min-height: 200px;
   }
@@ -45,11 +48,11 @@ mat-form-field {
 .slider-container {
   display: flex;
   flex-direction: column;
-  margin-bottom: 4px; // Réduit de 10px à 4px
+  margin-bottom: 4px;
 
   label {
-    margin-bottom: 2px; // Réduit de 5px à 2px
-    font-size: 0.9em; // Réduire légèrement la taille de la police
+    margin-bottom: 2px;
+    font-size: 0.9em;
   }
 
   mat-slider {
@@ -59,35 +62,72 @@ mat-form-field {
   .slider-value {
     align-self: flex-end;
     font-weight: bold;
-    font-size: 0.9em; // Réduire légèrement la taille de la police
-    margin-top: -4px; // Ajouter une marge négative pour rapprocher la valeur du slider
+    font-size: 0.9em;
+    margin-top: -4px;
   }
 }
 
 mat-card {
-  padding: 12px; // Réduit de 16px à 12px
+  padding: 12px;
 }
 
 mat-card-content {
-  padding-top: 12px; // Réduit de 16px à 12px
+  padding-top: 12px;
 }
 
 mat-divider {
-  margin: 12px 0; // Réduit de 16px à 12px
+  margin: 12px 0;
 }
 
-h3 {
-  margin: 12px 0; // Réduit de 16px à 12px
-  font-size: 1em; // Réduire légèrement la taille de la police
+h3, h5 {
+  margin: 12px 0;
+  font-size: 1em;
 }
 
 mat-checkbox {
-  margin-bottom: 4px; // Réduit de 8px à 4px
-  font-size: 0.9em; // Réduire légèrement la taille de la police
+  margin-bottom: 4px;
+  font-size: 0.9em;
 }
 
 // Ajustement spécifique pour les sliders Material
 ::ng-deep .mat-mdc-slider {
-  margin: 0 !important; // Supprimer toutes les marges par défaut
-  padding: 0 !important; // Supprimer tout le padding par défaut
+  margin: 0 !important;
+  padding: 0 !important;
+  height: 40px !important;
+}
+
+// Media Queries pour la responsivité
+@media screen and (max-width: 768px) {
+  .scenario-top-row {
+    flex-direction: column;
+  }
+
+  .scenario-container, .scenario-result {
+    flex: 1 1 100%;
+  }
+
+  .form-actions {
+    flex-direction: column;
+    gap: 10px;
+    
+    button {
+      width: 100%;
+    }
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .scenario-layout {
+    padding: 10px;
+  }
+
+  mat-card {
+    padding: 8px;
+  }
+
+  .slider-container {
+    label, .slider-value {
+      font-size: 0.8em;
+    }
+  }
 }

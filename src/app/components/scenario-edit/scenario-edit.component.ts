@@ -13,6 +13,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatCardModule } from '@angular/material/card';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-scenario-edit',
@@ -28,6 +29,7 @@ import { MatCardModule } from '@angular/material/card';
     MatCheckboxModule ,
     MatDividerModule,
     MatCardModule,
+    MatTooltipModule, 
     ScenarioResultComponent
   ],
   templateUrl: './scenario-edit.component.html',

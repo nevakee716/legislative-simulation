@@ -6,7 +6,10 @@
   <div class="scenario-top-row">
     <mat-card class="scenario-container">
       <mat-card-header>
-        <mat-card-title>Édition du scénario</mat-card-title>
+        <p class="description">
+          Cette simulation des élections législatives se base sur les résultats des élections européennes par circonscription. 
+          (source : <a target="_blank" href="https://www.data.gouv.fr/fr/datasets/resultats-des-elections-europeennes-du-9-juin-2024/">DataSet</a>)
+        </p>
       </mat-card-header>
       <mat-card-content>
         <form [formGroup]="scenarioForm" (ngSubmit)="saveScenario()" class="scenario-form">
@@ -17,7 +20,7 @@
 
           <div class="slider-container">
             <label>Participation (%)</label>
-            <mat-slider min="0" max="100" step="1" [displayWith]="formatLabel">
+            <mat-slider min="0" max="100" step="1" [displayWith]="formatLabel" matTooltip="La participation risque d'être beaucoup plus importante que pour les européennes (50%)">
               <input matSliderThumb formControlName="participation">
             </mat-slider>
             <span class="slider-value">{{ scenarioForm.get('participation')?.value }}%</span>
@@ -25,7 +28,7 @@
 
           <div class="slider-container">
             <label>Reveil de la Gauche (%)</label>
-            <mat-slider min="0" max="30" step="1" [displayWith]="formatLabel">
+            <mat-slider min="0" max="30" step="1" [displayWith]="formatLabel" matTooltip="La Gauche avait la participation la plus faible, on peut espèrer que la Gauche se reveil et participe plus">
               <input matSliderThumb formControlName="reveilDeLaGauche">
             </mat-slider>
             <span class="slider-value">{{ scenarioForm.get('reveilDeLaGauche')?.value }}%</span>
@@ -34,7 +37,7 @@
 
           <div class="slider-container">
             <label>Ratio PS dans Front Populaire (%)</label>
-            <mat-slider min="0" max="100" step="1" [displayWith]="formatLabel">
+            <mat-slider min="0" max="100" step="1" [displayWith]="formatLabel" matTooltip="Permet de distribuer les electeurs du PS dans NFP au 1er tour, les autres voteront LREM">
               <input matSliderThumb formControlName="psRatio">
             </mat-slider>
             <span class="slider-value">{{ scenarioForm.get('psRatio')?.value }}%</span>
@@ -48,7 +51,7 @@
 
           <div class="slider-container">
             <label>LREM => NFP Ratio (%)</label>
-            <mat-slider min="0" max="100" step="1" [displayWith]="formatLabel">
+            <mat-slider matTooltip="Les electeurs de LREM qui ne voteront pas NFP seront compter comme s'abstenant" min="0" max="100" step="1" [displayWith]="formatLabel">
               <input matSliderThumb formControlName="lremToNfpRatio">
             </mat-slider>
             <span class="slider-value">{{ scenarioForm.get('lremToNfpRatio')?.value }}%</span>
@@ -76,6 +79,7 @@
             <button mat-raised-button color="primary" type="submit" [disabled]="scenarioForm.invalid">Sauvegarder</button>
             <button mat-raised-button color="warn" type="button" (click)="deleteScenario()">Supprimer</button>
           </div>
+        
         </form>
       </mat-card-content>
     </mat-card>
@@ -83,5 +87,7 @@
     <div class="scenario-result">
       <app-scenario-result [result]="scenarioResult"></app-scenario-result>
     </div>
+
+
   </div>
 </div>

@@ -1,23 +1,19 @@
 <mat-toolbar color="primary">
-    <span>Éditeur de scénarios</span>
-    <span class="spacer"></span>
-    <button mat-raised-button color="accent" (click)="duplicateLastScenario()">
+  <span>Éditeur de scénarios</span>
+  <div> <button mat-raised-button color="accent" (click)="duplicateLastScenario()">
       Dupliquer le dernier scénario
     </button>
     <button mat-raised-button color="accent" (click)="loadDefaultScenarios()">
       Charger scénarios par défaut
     </button>
-  </mat-toolbar>
+  </div>
+
+</mat-toolbar>
 
 <mat-tab-group [(selectedIndex)]="selectedTabIndex">
-    <mat-tab *ngFor="let scenario of scenarios; let i = index" [label]="scenario.name">
-      <app-scenario-edit 
-        [scenario]="scenario" 
-        (scenarioUpdated)="updateScenario($event, i)"
-        (scenarioDeleted)="deleteScenario(i)">
-      </app-scenario-edit>
-    </mat-tab>
-  </mat-tab-group>
-  <button mat-fab color="primary" (click)="addScenario()" class="add-button">
-    <mat-icon>add</mat-icon>
-  </button>
+  <mat-tab *ngFor="let scenario of scenarios; let i = index" [label]="scenario.name">
+    <app-scenario-edit [scenario]="scenario" (scenarioUpdated)="updateScenario($event, i)"
+      (scenarioDeleted)="deleteScenario(i)">
+    </app-scenario-edit>
+  </mat-tab>
+</mat-tab-group>
