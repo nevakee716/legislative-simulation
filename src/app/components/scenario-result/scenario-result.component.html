@@ -5,6 +5,10 @@
     <mat-card-content>
       @if(result && result.assemble) {
         <app-assembly-results-chart [results]="result.assemble"></app-assembly-results-chart>
+        <app-circonscription-search [circonscriptions]="result.circonscriptions"></app-circonscription-search> 
+        <app-bar-chart [title]="'Occurence du 2e tour avant retrait'" [data]="result.secondRoundBeforeWithdraw"></app-bar-chart>   
+        <app-bar-chart [title]="'3e des triangulaires'" [data]="result.inThirdPlaceBeforeWithDraw"></app-bar-chart>   
+         
         <pre> {{result | json}}</pre>
       }
     </mat-card-content>

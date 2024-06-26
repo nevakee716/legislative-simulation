@@ -116,10 +116,8 @@ export class ScenarioEditComponent implements OnInit {
   }
 
   updateScenarioResult() {
-    const updatedScenario = this.getCurrentScenario();
-  
+    const updatedScenario = this.getCurrentScenario(); 
     this.scenarioResult = this.simulationService.simulateResult(updatedScenario).results;
-    console.log(this.scenarioResult)
     this.updateJsonEditor(updatedScenario);
   }
 
