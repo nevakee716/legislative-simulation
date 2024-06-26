@@ -1,0 +1,11 @@
+<mat-card>
+    <mat-card-header>
+      <mat-card-title>Résultat du scénario</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      @if(result && result.assemble) {
+        <app-assembly-results-chart [results]="result.assemble"></app-assembly-results-chart>
+        <pre> {{result | json}}</pre>
+      }
+    </mat-card-content>
+  </mat-card>

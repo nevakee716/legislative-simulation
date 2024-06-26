@@ -1,0 +1,78 @@
+<div class="scenario-layout">
+  <mat-expansion-panel class="advanced-editor">
+    <!-- ... contenu inchangé de l'éditeur JSON ... -->
+  </mat-expansion-panel>
+  
+  <div class="scenario-top-row">
+    <mat-card class="scenario-container">
+      <mat-card-header>
+        <mat-card-title>Édition du scénario</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <form [formGroup]="scenarioForm" (ngSubmit)="saveScenario()" class="scenario-form">
+          <mat-form-field appearance="outline">
+            <mat-label>Nom du scénario</mat-label>
+            <input matInput formControlName="name">
+          </mat-form-field>
+
+          <div class="slider-container">
+            <label>Participation (%)</label>
+            <mat-slider min="0" max="100" step="1" [displayWith]="formatLabel">
+              <input matSliderThumb formControlName="participation">
+            </mat-slider>
+            <span class="slider-value">{{ scenarioForm.get('participation')?.value }}%</span>
+          </div>
+
+          <div class="slider-container">
+            <label>Ratio PS dans Front Populaire (%)</label>
+            <mat-slider min="0" max="100" step="1" [displayWith]="formatLabel">
+              <input matSliderThumb formControlName="psRatio">
+            </mat-slider>
+            <span class="slider-value">{{ scenarioForm.get('psRatio')?.value }}%</span>
+          </div>
+
+          <mat-divider></mat-divider>
+          <h5>Si Triangulaire</h5>
+          <mat-checkbox formControlName="nfpRetreatIf3rd">NFP se retire si 3ème</mat-checkbox>
+          <mat-checkbox formControlName="lremRetreatIf3rd">LREM se retire si 3ème</mat-checkbox>
+          <h5>En cas de duel Front Populaire RN</h5>
+
+          <div class="slider-container">
+            <label>LREM => NFP Ratio (%)</label>
+            <mat-slider min="0" max="100" step="1" [displayWith]="formatLabel">
+              <input matSliderThumb formControlName="lremToNfpRatio">
+            </mat-slider>
+            <span class="slider-value">{{ scenarioForm.get('lremToNfpRatio')?.value }}%</span>
+          </div>
+
+          <div class="slider-container">
+            <label>LR => NFP Ratio (%)</label>
+            <mat-slider min="0" max="100" step="1" [displayWith]="formatLabel">
+              <input matSliderThumb formControlName="lrToNfpRatio">
+            </mat-slider>
+            <span class="slider-value">{{ scenarioForm.get('lrToNfpRatio')?.value }}%</span>
+          </div>
+
+          <div class="slider-container">
+            <label>LR => RN Ratio (%)</label>
+            <mat-slider min="0" max="100" step="1" [displayWith]="formatLabel">
+              <input matSliderThumb formControlName="lrToRNRatio">
+            </mat-slider>
+            <span class="slider-value">{{ scenarioForm.get('lrToRNRatio')?.value }}%</span>
+          </div>
+
+
+
+          <div class="form-actions">
+            <button mat-raised-button color="primary" type="submit" [disabled]="scenarioForm.invalid">Sauvegarder</button>
+            <button mat-raised-button color="warn" type="button" (click)="deleteScenario()">Supprimer</button>
+          </div>
+        </form>
+      </mat-card-content>
+    </mat-card>
+
+    <div class="scenario-result">
+      <app-scenario-result [result]="scenarioResult"></app-scenario-result>
+    </div>
+  </div>
+</div>

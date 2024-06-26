@@ -1,0 +1,93 @@
+.scenario-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+}
+
+.scenario-top-row {
+  display: flex;
+  gap: 20px;
+}
+
+.scenario-container, .scenario-result {
+  flex: 1;
+}
+
+.scenario-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px; // Réduit de 10px à 8px
+}
+
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 16px;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.advanced-editor {
+  width: 100%;
+}
+
+.json-editor {
+  width: 100%;
+
+  textarea {
+    min-height: 200px;
+  }
+}
+
+.slider-container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 4px; // Réduit de 10px à 4px
+
+  label {
+    margin-bottom: 2px; // Réduit de 5px à 2px
+    font-size: 0.9em; // Réduire légèrement la taille de la police
+  }
+
+  mat-slider {
+    width: 100%;
+  }
+
+  .slider-value {
+    align-self: flex-end;
+    font-weight: bold;
+    font-size: 0.9em; // Réduire légèrement la taille de la police
+    margin-top: -4px; // Ajouter une marge négative pour rapprocher la valeur du slider
+  }
+}
+
+mat-card {
+  padding: 12px; // Réduit de 16px à 12px
+}
+
+mat-card-content {
+  padding-top: 12px; // Réduit de 16px à 12px
+}
+
+mat-divider {
+  margin: 12px 0; // Réduit de 16px à 12px
+}
+
+h3 {
+  margin: 12px 0; // Réduit de 16px à 12px
+  font-size: 1em; // Réduire légèrement la taille de la police
+}
+
+mat-checkbox {
+  margin-bottom: 4px; // Réduit de 8px à 4px
+  font-size: 0.9em; // Réduire légèrement la taille de la police
+}
+
+// Ajustement spécifique pour les sliders Material
+::ng-deep .mat-mdc-slider {
+  margin: 0 !important; // Supprimer toutes les marges par défaut
+  padding: 0 !important; // Supprimer tout le padding par défaut
+}
