@@ -9,7 +9,14 @@
         <app-bar-chart [title]="'Occurence du 2e tour avant retrait'" [data]="result.secondRoundBeforeWithdraw"></app-bar-chart>   
         <app-bar-chart [title]="'3e des triangulaires'" [data]="result.inThirdPlaceBeforeWithDraw"></app-bar-chart>   
          
-        <pre> {{result | json}}</pre>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Afficher le JSON complet
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <pre>{{result | json}}</pre>
+        </mat-expansion-panel>
       }
     </mat-card-content>
   </mat-card>
