@@ -1,6 +1,8 @@
 <mat-form-field appearance="fill">
     <mat-label>Rechercher une circonscription</mat-label>
-    <input matInput type="text" [(ngModel)]="searchTerm" (ngModelChange)="updateSearch()"
+    <input matInput type="text" 
+           [ngModel]="searchTerm()" 
+           (ngModelChange)="updateSearchTerm($event)"
            [matAutocomplete]="auto">
     <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onOptionSelected($event)">
       <mat-option *ngFor="let circ of filteredCirconscriptions()" [value]="circ.label">
@@ -8,26 +10,26 @@
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>
-
+  
   <mat-card *ngIf="selectedCirconscription()">
     <mat-card-header>
       <mat-card-title>{{selectedCirconscription()?.label}}</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <h6>Premier tour</h6>
+      <h3>Premier tour</h3>
       <ul>
         <li *ngFor="let result of selectedCirconscription()?.legislatives?.['1er']">
           {{result.name}}: {{result.vote}} votes ({{result['vote%']}}%)
         </li>
       </ul>
-      <h6>Second tour</h6>
+      <h3>Second tour</h3>
       <ul>
         <li *ngFor="let result of selectedCirconscription()?.legislatives?.['2e']">
           {{result.name}}: {{result.vote}} votes ({{result['vote%']}}%)
         </li>
       </ul>
-
-       <h5>Gagnant: {{selectedCirconscription()?.legislatives?.winner}}</h5> 
-
+      <p *ngIf="selectedCirconscription()?.legislatives?.winner">
+        Gagnant: {{selectedCirconscription()?.legislatives?.winner}}
+      </p>
     </mat-card-content>
   </mat-card>

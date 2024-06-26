@@ -1,4 +1,4 @@
-import { Component, input, signal, computed } from '@angular/core';
+import { Component, input, signal, computed, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
@@ -15,6 +15,7 @@ interface Circonscription {
     winner?: string;
   };
 }
+
 @Component({
   selector: 'app-circonscription-search',
   standalone: true,
@@ -22,13 +23,11 @@ interface Circonscription {
   templateUrl: './circonscription-search.component.html',
   styleUrl: './circonscription-search.component.scss'
 })
-
-
 export class CirconscriptionSearchComponent {
   circonscriptions = input.required<Circonscription[]>();
   
   searchTerm = signal('');
-  selectedCirconscription = signal<Circonscription | null>(null);
+  private selectedCirconscriptionLabel = signal<string | null>(null);
 
   filteredCirconscriptions = computed(() => {
     const term = this.searchTerm().toLowerCase();
@@ -37,13 +36,27 @@ export class CirconscriptionSearchComponent {
     );
   });
 
-  updateSearch() {
-    this.selectedCirconscription.set(null);
+  selectedCirconscription = computed(() => {
+    const label = this.selectedCirconscriptionLabel();
+    return label ? this.circonscriptions().find(circ => circ.label === label) || null : null;
+  });
+
+  constructor() {
+    effect(() => {
+      // Vérifier si la circonscription sélectionnée existe toujours dans la nouvelle liste
+      const currentLabel = this.selectedCirconscriptionLabel();
+      if (currentLabel && !this.circonscriptions().some(circ => circ.label === currentLabel)) {
+        this.selectedCirconscriptionLabel.set(null);
+      }
+    });
+  }
+
+  updateSearchTerm(newTerm: string) {
+    this.searchTerm.set(newTerm);
   }
 
   onOptionSelected(event: any) {
-    const selectedName = event.option.value;
-    const selected = this.circonscriptions().find(circ => circ.label === selectedName);
-    this.selectedCirconscription.set(selected || null);
+    const selectedLabel = event.option.value;
+    this.selectedCirconscriptionLabel.set(selectedLabel);
   }
 }
