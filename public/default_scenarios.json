@@ -1,9 +1,9 @@
 {
     "scenarios": [
         {
-            "name": "Full Front Populaire",
-            "participation": 0.5,
-            "reveilDeLaGauche" : 0,
+            "name": "Défault",
+            "participation": 0.7,
+            "reveilDeLaGauche" : 0.1,
             "nfpRetreatIf3rd" : true,
             "lremRetreatIf3rd" : true,
             "groupement": [
@@ -12,7 +12,7 @@
                     "regroupement": [
                         {
                             "name": "PS",
-                            "ratio": 1
+                            "ratio": 0.85
                         },
                         {
                             "name": "LFI",
@@ -34,8 +34,7 @@
                             "name": "Animaliste",
                             "ratio": 1
                         }
-                    ],
-                    "vote": 9010
+                    ]
                 },
                 {
                     "name": "LREM",
@@ -46,14 +45,13 @@
                         },
                         {
                             "name": "PS",
-                            "ratio": 0
+                            "ratio": 0.15
                         },
                         {
                             "name": "LR",
                             "ratio": 0
                         }
-                    ],
-                    "vote": 5332
+                    ]
                 },
                 {
                     "name": "RN",
@@ -77,13 +75,8 @@
                         {
                             "name": "Lassale",
                             "ratio": 1
-                        },
-                        {
-                            "name": "LR",
-                            "ratio": 0
                         }
-                    ],
-                    "vote": 5820
+                    ]
                 },
                 {
                     "name": "LR",
@@ -92,8 +85,7 @@
                             "name": "LR",
                             "ratio": 1
                         }
-                    ],
-                    "vote": 1867
+                    ]
                 }
             ],
             "LREM vs Front Populaire": [
@@ -145,7 +137,7 @@
                         },
                         {
                             "name": "LR",
-                            "ratio": 0.8
+                            "ratio": 0.7
                         }
                     ]
                 },
@@ -154,7 +146,7 @@
                     "regroupement": [
                         {
                             "name": "LR",
-                            "ratio": 0.2
+                            "ratio": 0.3
                         }
                     ]
                 }
@@ -165,7 +157,7 @@
                     "regroupement": [
                         {
                             "name": "LREM",
-                            "ratio": 0.9
+                            "ratio": 0.7
                         },
                         {
                             "name": "LR",
@@ -182,7 +174,7 @@
                     "regroupement": [
                         {
                             "name": "LR",
-                            "ratio": 0.5
+                            "ratio": 0.6
                         }
                     ]
                 }
